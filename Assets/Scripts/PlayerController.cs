@@ -24,11 +24,10 @@ public class PlayerController : MonoBehaviour
     private void HandleMovementInput()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        
+        moveDirection = new Vector3(horizontalInput, 0, 0);
 
-        moveDirection = new Vector3(horizontalInput, 0, verticalInput);
-
-        Vector3 movement = new Vector3(horizontalInput, verticalInput, 0.0f) * speed * Time.deltaTime;
+        Vector3 movement = new Vector3(horizontalInput, 0.0f, 0.0f) * speed * Time.deltaTime;
 
         // Update the object's position
         transform.Translate(movement, Space.World);
@@ -36,6 +35,7 @@ public class PlayerController : MonoBehaviour
         // Ensure the object can move in both positive and negative X directions
         float newX = Mathf.Clamp(transform.position.x, -20.0f, 20.0f); // Adjust the range as needed
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+
 
     }
 
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
             SetAnimatorSpeed(0f);
         }
 
-        if (Input.GetKey(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J))
         {
             punch = true ;
             SetAnimatorPunch(punch);
@@ -62,17 +62,16 @@ public class PlayerController : MonoBehaviour
             SetAnimatorPunch(false);
         }
 
-        /* if (Input.GetKeyDown(KeyCode.K))
-        {
-            kick = true ;
-            SetAnimatorKick(kick);
-        }
+    if (Input.GetKey(KeyCode.K))
+    {
 
-        else 
-        {
-            SetAnimatorKick(false);
-        }
-        */
+        playerAnim.SetBool("Kick", true);
+    }
+    else
+    {
+        playerAnim.SetBool("Kick", false);
+    }
+
     }
 
     private void RotateCharacter()
@@ -90,10 +89,5 @@ public class PlayerController : MonoBehaviour
         playerAnim.SetBool("PunchKey", punchKey);
     }
 
-   /* private void SetAnimatorKick(bool kickKey)
-    {
-        playerAnim.SetBool("KickKey", kickKey);
-    }
-    */
 }
 
