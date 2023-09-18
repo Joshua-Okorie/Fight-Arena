@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
             SetAnimatorPunch(false);
         }
 
-    if (Input.GetKey(KeyCode.K))
+    if (Input.GetKeyDown(KeyCode.K))
     {
 
         playerAnim.SetBool("Kick", true);
