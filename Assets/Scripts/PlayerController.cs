@@ -5,89 +5,51 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Animator playerAnim;
+    private Rigidbody playerRigid;
     private Vector3 moveDirection;
     public float speed = 10f;
-    private bool punch = false;
-    //private bool kick = false;
+    
+
 
     private void Start()
     {
         playerAnim = GetComponent<Animator>();
+        playerRigid = GetComponent<Rigidbody>();
+
     }
 
     private void Update()
     {
+      
+
+    }
+
+    private void FixedUpdate()
+    {
         HandleMovementInput();
-        UpdateAnimator();
     }
 
     private void HandleMovementInput()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        
-        moveDirection = new Vector3(horizontalInput, 0, 0);
-
-        Vector3 movement = new Vector3(horizontalInput, 0.0f, 0.0f) * speed * Time.deltaTime;
-
-        // Update the object's position
-        transform.Translate(movement, Space.World);
-
-        // Ensure the object can move in both positive and negative X directions
-        float newX = Mathf.Clamp(transform.position.x, -20.0f, 20.0f); // Adjust the range as needed
-        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
-
+        playerRigid.velocity = new Vector3 (Input.GetAxisRaw("Horizontal") * (speed), playerRigid.velocity.y, playerRigid.velocity.z);
+        Debug.Log(Input.GetAxisRaw("Horizontal"));
+        HandleRotation();
 
     }
-
-    private void UpdateAnimator()
+    
+    private void HandleRotation()
     {
-        if (moveDirection != Vector3.zero)
+        if(Input.GetAxisRaw("Horizontal") > 0f)
         {
-            RotateCharacter();
-            SetAnimatorSpeed(moveDirection.magnitude * speed);
-        }
-        else
-        {
-            SetAnimatorSpeed(0f);
+            transform.rotation = Quaternion.Euler(0f, Mathf.Abs(90f), 0f);
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        else if (Input.GetAxisRaw("Horizontal") < 0f)
         {
-            punch = true ;
-            SetAnimatorPunch(punch);
+            transform.rotation = Quaternion.Euler(0f, -Mathf.Abs(90f), 0f);
         }
-
-        else 
-        {
-            SetAnimatorPunch(false);
-        }
-
-    if (Input.GetKeyDown(KeyCode.K))
-    {
-
-        playerAnim.SetBool("Kick", true);
-    }
-    else
-    {
-        playerAnim.SetBool("Kick", false);
     }
 
-    }
-
-    private void RotateCharacter()
-    {
-        transform.LookAt(transform.position + moveDirection);
-    }
-
-    private void SetAnimatorSpeed(float speedValue)
-    {
-        playerAnim.SetFloat("Speed", speedValue);
-    }
-
-    private void SetAnimatorPunch(bool punchKey)
-    {
-        playerAnim.SetBool("PunchKey", punchKey);
-    }
 
 }
 
