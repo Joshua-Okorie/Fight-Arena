@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Animator playerAnim;
+    private CharacterAnimation playerAnim;
     private Rigidbody playerRigid;
     private Vector3 moveDirection;
     public float speed = 10f;
@@ -13,14 +13,15 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        playerAnim = GetComponent<Animator>();
+        playerAnim = GetComponent<CharacterAnimation>();
         playerRigid = GetComponent<Rigidbody>();
 
     }
 
     private void Update()
     {
-      
+      AnimateWalk();
+      HandleRotation();
 
     }
 
@@ -31,9 +32,12 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovementInput()
     {
-        playerRigid.velocity = new Vector3 (Input.GetAxisRaw("Horizontal") * (speed), playerRigid.velocity.y, playerRigid.velocity.z);
-        Debug.Log(Input.GetAxisRaw("Horizontal"));
-        HandleRotation();
+        playerRigid.velocity = new Vector3 (
+            Input.GetAxisRaw("Horizontal") * (speed),
+            playerRigid.velocity.y,
+            playerRigid.velocity.z);
+       
+        
 
     }
     
@@ -50,6 +54,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void AnimateWalk()
+    {
+        if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            playerAnim.Walk(true);
+        }
+
+        else
+        {
+            playerAnim.Walk(false);
+        }
+    }
 
 }
 

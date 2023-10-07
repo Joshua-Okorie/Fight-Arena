@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KickDamage : MonoBehaviour
+public class CharacterAnimation : MonoBehaviour
 {
+    private Animator playerAnim;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -16,8 +17,8 @@ public class KickDamage : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter (Collision collision)
+    public void Walk(bool move)
     {
-        Debug.Log("Contact");
+        playerAnim.SetBool("Walk", move);
     }
 }
