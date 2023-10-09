@@ -21,4 +21,27 @@ public class CharacterAnimation : MonoBehaviour
     {
         playerAnim.SetBool("Walk", move);
     }
+
+    public void Punch1()
+    {
+        playerAnim.SetTrigger("Punch1");
+    }
+
+    public void Punch2()
+    {
+        playerAnim.SetTrigger("Punch2");
+    }
+    public void Punch3()
+    {
+        playerAnim.SetTrigger("Punch3");
+    }
+
+    public void Punch4()
+    {
+        playerAnim.SetTrigger("Punch4");
+    }
+    public void Kick1()
+    {
+        playerAnim.SetTrigger("Kick1");
+    }
 }
