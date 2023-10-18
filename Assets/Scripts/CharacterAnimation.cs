@@ -42,6 +42,6 @@ public class CharacterAnimation : MonoBehaviour
     }
     public void Kick1()
     {
-        playerAnim.SetTrigger("Kick1");
+        playerAnim.SetTrigger("Kick");
     }
 }

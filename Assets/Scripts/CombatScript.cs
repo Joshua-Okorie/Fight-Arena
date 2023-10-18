@@ -25,24 +25,23 @@ public class CombatScript : MonoBehaviour
     {
         playerAnim = GetComponent<CharacterAnimation>();
 
-        currentComboTimer = defaultComboTimer;
-        currentComboState = ComboState.NONE;
+       currentComboTimer = defaultComboTimer;
+       currentComboState = ComboState.NONE;
     }
 
     // Update is called once per frame
     void Update()
     {
         PunchCombo();
-        //ResetComboState();
+        ResetComboState();
+        KickCombo();
     }
 
     void PunchCombo()
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
-
-            playerAnim.Punch1();
-           /* currentComboState++;
+            currentComboState++;
             activateTimerToReset = true;
             currentComboTimer = defaultComboTimer;
 
@@ -64,11 +63,18 @@ public class CombatScript : MonoBehaviour
              if (currentComboState == ComboState.PUNCH4)
             {
                 playerAnim.Punch4();
-            } */
+            } 
         }
     }
 
-  /*  void ResetComboState()
+    void KickCombo()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            playerAnim.Kick1();
+        }
+    }
+ void ResetComboState()
     {
         
         if(activateTimerToReset)
@@ -84,5 +90,5 @@ public class CombatScript : MonoBehaviour
         } 
     }
 
-    */
+
 }
