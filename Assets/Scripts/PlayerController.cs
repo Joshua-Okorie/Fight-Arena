@@ -75,12 +75,12 @@ public class PlayerController : MonoBehaviour
 
     private void PlayCollisionEffect()
     {
-        if (cursedEnergy1||cursedEnergy2 != null)
+        if (cursedEnergy1||cursedEnergy2 != null && Input.GetKeyDown(KeyCode.J)||Input.GetKeyDown(KeyCode.K))
         {
-            cursedEnergy1.Play();
             cursedEnergy2.Play();
-
+            cursedEnergy1.Play();
         }
+       
     }
 }
 
